@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { increment, decrement, contactAdded } from './action';
 import { useState } from 'react'
+import Contact from './Contact';
 
 function App() {
   const counter = useSelector(state => state.counter)
@@ -32,8 +33,8 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number}</li>
-
+            {/* <li>name {item.name} number {item.number}</li> */}
+            <Contact key={index} index={index} item={item} />
           </div>
         )
       })}</ul>
