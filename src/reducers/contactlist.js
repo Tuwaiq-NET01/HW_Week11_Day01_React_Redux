@@ -8,6 +8,16 @@ export default function contactlist(state = [], action) {
 
                 }
             ]
+        case "EDIT":
+            state[action.index]  = {
+                number: action.payload.number,
+                name: action.payload.name,
+            }
+            return state
+        case "DELETE":
+            let arrCopy= [...state]
+            arrCopy.splice(action.payload,1)
+            return arrCopy
         default:
             return state
     }
