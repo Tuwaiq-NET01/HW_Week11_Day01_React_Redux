@@ -9,8 +9,6 @@ const allReducers = combineReducers({
     counter: counterReducer,
     logged: loggedReducer,
     contactlist,
-
-
 })
 
 export default allReducers;
