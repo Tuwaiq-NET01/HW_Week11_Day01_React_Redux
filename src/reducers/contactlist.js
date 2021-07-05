@@ -4,9 +4,23 @@ export default function contactlist(state = [], action) {
             return [
                 ...state, {
                     number: action.payload.number,
-                    name: action.payload.name,
-
+                    name: action.payload.name
                 }
+            ]
+        case "contactEdited":
+            
+            console.log(state)
+            state.splice(action.payload.index, 1, {
+                number: action.payload.number,
+                name: action.payload.name
+            })
+            return [
+                ...state
+            ]
+        case "contactDeleted" :
+            state.splice(action.payload.index, 1)
+            return [
+                ...state
             ]
         default:
             return state

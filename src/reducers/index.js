@@ -8,9 +8,7 @@ import { combineReducers } from 'redux'
 const allReducers = combineReducers({
     counter: counterReducer,
     logged: loggedReducer,
-    contactlist,
-
-
+    contactlist
 })
 
 export default allReducers;
