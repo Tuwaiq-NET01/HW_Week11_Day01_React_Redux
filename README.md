@@ -1,6 +1,6 @@
 # Contact list
 
-![alt text](./img.jpeg)
+<img src="https://raw.githubusercontent.com/NorahMAlmutairi/HW_Week11_Day01_React_Redux/master/ContactListDemo.png"/>
 
 ## Requirements
 
@@ -12,6 +12,10 @@
 
 On Tuesday at 9:00 pm.
 
+##  About 
+- Name : Norah Almutairi
+- Team Name : Al-Aula
+- Supervisor Name : Sarah Algahtani 
 
 
 
