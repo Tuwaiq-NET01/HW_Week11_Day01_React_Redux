@@ -8,7 +8,26 @@ export default function contactlist(state = [], action) {
 
                 }
             ]
+     
+    
+    case "contactDeleted":
+        return state.filter(({ id }) => id !== action.payload);
+
+
+
+
+     
+    case "contactEdited":
+        return state.map((item)=> {
+            if( item.id == action.payload.id) {
+              return action.payload
+            } else {
+              return item;
+            }
+          });
         default:
             return state
     }
+
+   
 }
