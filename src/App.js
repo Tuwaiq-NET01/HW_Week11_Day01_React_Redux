@@ -1,59 +1,77 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
+import { contactAdded, contactDeleted, contactEdited } from './action';
 import { useState } from 'react'
-
 function App() {
-  const counter = useSelector(state => state.counter)
+
   const contactlist = useSelector(state => state.contactlist)
   const [phone, setPhone] = useState({})
+  const [selected, setSelected] = useState(-1)
   const dispatch = useDispatch();
   const handelChange = (event) => {
-    const att = event.target.name
-    const value = event.target.value
-    const updatedValue = { ...phone }
-    updatedValue[att] = value
-    console.log("updatedValue", updatedValue);
-    setPhone(updatedValue)
-
+  const att = event.target.name
+  const value = event.target.value
+  const updatedValue = { ...phone }
+  updatedValue[att] = value
+  console.log("updatedValue", updatedValue);
+  setPhone(updatedValue)
   }
-
 
   const handelSubmit = (event) => {
-    event.preventDefault()
-    dispatch(contactAdded(phone))
+  event.preventDefault()
+  dispatch(contactAdded(phone))
   }
+
+  const handelEdit = (event) => {
+  event.preventDefault()
+  setSelected(-1)
+  dispatch(contactEdited(selected, phone))
+  }
+
   return (
     <div >
-      <h1>counter {counter}</h1>
-
-      <button onClick={() => dispatch(increment(2))}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-
-      <ul>{contactlist.map((item, index) => {
-        return (
-          <div key={index}>
-            <li>name {item.name} number {item.number}</li>
-
+      <center>
+        <h1>Contact List</h1>
+        {contactlist.map((item, index) => {
+          if (selected === index) {
+            return (
+              <form onSubmit={handelEdit}>
+                <label> Name : <input type="text" name="name" class="form-label" value={phone.name} onChange={handelChange} /> </label>
+                <br/>
+                <label> Number : <input type="text" name="number" value={phone.number} onChange={handelChange} /> </label>
+                <div>
+                <br/>
+                <button type="submit"> Save changes</button>
+                </div>
+              </form>
+            )
+          }
+          else {
+            return (
+              <div key={index}>
+              <label> Name : {item.name}</label> <br/> <label>Phone Number :{item.number} </label> <br/>
+              <br></br>
+              <button onClick={() => dispatch(contactDeleted(index))}> Delete </button>
+              <button onClick={() => { setSelected(index); setPhone(item) }} >Edit </button>
+     
+              </div>
+             
+            )
+           
+          }
+   
+        })}
+        <form onSubmit={handelSubmit}>
+        <br></br>
+        <label> Name : <input type="text" name="name" onChange={handelChange} /> </label>
+          <br/>
+          <label> Number : <input type="text" name="number" onChange={handelChange} /> </label>
+          <div>
+          <br/>
+          <button type="submit" > Add to list</button>
           </div>
-        )
-      })}</ul>
-
-      <form onSubmit={handelSubmit}>
-        <label>
-          <input type="text" name="number" onChange={handelChange} />
-                number</label>
-        <br />
-        <label>
-          <input type="text" name="name" onChange={handelChange} />
-                name</label>
-        <br />
-        <div>
-          <input type="submit" value="Add to the list" />
-        </div>
-      </form>
-
+        </form>
+      </center>
     </div>
   );
 }
-
 export default App;
