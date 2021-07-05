@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { createStore } from "redux";
 import allReducers from './reducers'
 import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const initialState = {
   counter: 10,
 }

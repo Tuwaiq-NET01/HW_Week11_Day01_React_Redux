@@ -1,57 +1,73 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
+import { contactAdded,contactDeleted,contactEdited } from './action';
 import { useState } from 'react'
+import Form from './Form';
 
 function App() {
-  const counter = useSelector(state => state.counter)
   const contactlist = useSelector(state => state.contactlist)
-  const [phone, setPhone] = useState({})
+
+  const [contact, setContact] = useState({})
+  const [isEdit, setIsEdit] = useState(false)
+  const [index, setindex] = useState()
+
+  const [NameValue, setNameValue] = useState('')
+  const [NumberValue, setNumberValue] = useState('')
   const dispatch = useDispatch();
+
+
+
   const handelChange = (event) => {
     const att = event.target.name
     const value = event.target.value
-    const updatedValue = { ...phone }
+    const updatedValue = { ...contact }
     updatedValue[att] = value
     console.log("updatedValue", updatedValue);
-    setPhone(updatedValue)
-
+    setContact(updatedValue)
   }
 
 
   const handelSubmit = (event) => {
     event.preventDefault()
-    dispatch(contactAdded(phone))
+
+    !isEdit ? dispatch(contactAdded(contact)) :
+     dispatch(contactEdited({"index":index,"name":contact.name,"number":contact.number}))
+
+     setIsEdit(false)
   }
+
+  const DeleteContact=(index)=>{
+    
+   dispatch(contactDeleted(index))
+  }
+
+  const EditedContact=(index,item)=>{
+    setindex(index)
+    setNameValue(item.name)
+    setNumberValue(item.number)
+    setIsEdit(true)
+   }
+
   return (
     <div >
-      <h1>counter {counter}</h1>
-
-      <button onClick={() => dispatch(increment(2))}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
+    <center>
 
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number}</li>
+            
 
+            <h3>Name: <br/> {item.name}</h3>
+            <h4>Number: <br/> {item.number}</h4>
+            { !isEdit? <div><button  className="btn btn-danger" onClick={()=>DeleteContact(index)}>Delete Contact</button>
+            <button className="btn btn-warning" onClick={()=>EditedContact(index,item)}>Edit Contact</button></div>:null}
           </div>
         )
       })}</ul>
 
-      <form onSubmit={handelSubmit}>
-        <label>
-          <input type="text" name="number" onChange={handelChange} />
-                number</label>
-        <br />
-        <label>
-          <input type="text" name="name" onChange={handelChange} />
-                name</label>
-        <br />
-        <div>
-          <input type="submit" value="Add to the list" />
-        </div>
-      </form>
-
+      {!isEdit?  <Form   handelChange={handelChange} handelSubmit={handelSubmit} buttonString={"Add to the list"}/> :
+      <Form NameValue={NameValue} NumberValue={NumberValue} handelChange={handelChange} handelSubmit={handelSubmit} buttonString={"Edit Contact"}/>}
+     
+     </center>
     </div>
   );
 }
