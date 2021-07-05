@@ -1,16 +1,11 @@
-
-import counterReducer from "./counter"
-import loggedReducer from './isLogged'
-import contactlist from './contactlist'
+import counterReducer from './counter'
+import contactReducer from './contact'
 
 import { combineReducers } from 'redux'
 
 const allReducers = combineReducers({
-    counter: counterReducer,
-    logged: loggedReducer,
-    contactlist,
-
-
+  counter: counterReducer,
+  contactList: contactReducer,
 })
 
-export default allReducers;
+export default allReducers

@@ -1,59 +1,65 @@
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
-import { useState } from 'react'
+import {
+  increment,
+  decrement,
+  addRecord,
+  editRecord,
+  deleteRecord,
+} from './actions'
 
-function App() {
-  const counter = useSelector(state => state.counter)
-  const contactlist = useSelector(state => state.contactlist)
-  const [phone, setPhone] = useState({})
-  const dispatch = useDispatch();
-  const handelChange = (event) => {
-    const att = event.target.name
-    const value = event.target.value
-    const updatedValue = { ...phone }
-    updatedValue[att] = value
-    console.log("updatedValue", updatedValue);
-    setPhone(updatedValue)
-
-  }
-
-
-  const handelSubmit = (event) => {
-    event.preventDefault()
-    dispatch(contactAdded(phone))
-  }
+const App = () => {
+  const counter = useSelector((state) => state.counter)
+  const list = useSelector((state) => state.contactList)
+  const [contact, setContact] = useState(() => '')
+  const dispatch = useDispatch()
   return (
-    <div >
-      <h1>counter {counter}</h1>
-
-      <button onClick={() => dispatch(increment(2))}>+</button>
+    <div className="App">
+      <h2>{counter}</h2>
+      <button onClick={() => dispatch(increment(1))}>+</button>
       <button onClick={() => dispatch(decrement())}>-</button>
-
-      <ul>{contactlist.map((item, index) => {
-        return (
-          <div key={index}>
-            <li>name {item.name} number {item.number}</li>
-
-          </div>
-        )
-      })}</ul>
-
-      <form onSubmit={handelSubmit}>
-        <label>
-          <input type="text" name="number" onChange={handelChange} />
-                number</label>
-        <br />
-        <label>
-          <input type="text" name="name" onChange={handelChange} />
-                name</label>
-        <br />
+      <br />
+      <div>
+        <h2>Contact List</h2>
         <div>
-          <input type="submit" value="Add to the list" />
+          <input
+            type="text"
+            value={contact}
+            onChange={(e) => {
+              setContact(e.target.value)
+            }}
+          />
+          <button
+            onClick={() => {
+              dispatch(addRecord(contact))
+              setContact('')
+            }}
+          >
+            Add
+          </button>
+          <br />
+          <br />
         </div>
-      </form>
-
+        {list &&
+          list.map((contact, index) => {
+            return (
+              <div key={index}>
+                <input
+                  type="text"
+                  value={contact}
+                  onChange={(e) => {
+                    dispatch(editRecord(contact, e.target.value))
+                  }}
+                />
+                <button onClick={() => dispatch(deleteRecord(contact))}>
+                  Del
+                </button>
+              </div>
+            )
+          })}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
