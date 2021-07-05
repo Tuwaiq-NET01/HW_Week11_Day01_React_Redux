@@ -15,3 +15,24 @@ export const contactAdded = (arg) => {
         payload: arg
     }
 }
+
+export const toggle =()=>{
+    return{
+        type: "toggle",
+        
+    }
+}
+
+export const deleteItem = (id)=>{
+    return{
+        type: "deleteItem",
+        payload:id
+    }
+}
+
+export const editItem = (arg)=>{
+    return{
+        type:"editItem",
+        payload:arg
+    }
+}
