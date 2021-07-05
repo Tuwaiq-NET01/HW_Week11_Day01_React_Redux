@@ -4,7 +4,7 @@
 
 # Demo
 
-![alt text](./demo.png)
+![alt text](https://memecreator.org/static/images/memes/5328571.jpg)
 
 
 ## Requirements
