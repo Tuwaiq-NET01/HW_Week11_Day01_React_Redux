@@ -10,7 +10,6 @@ function App() {
   const dispatch = useDispatch();
 
   const handelChange = (event) => {
-    if (event.target.value.length < 2) return;
     const att = event.target.name;
     const value = event.target.value;
     const updatedValue = { ...phone };
@@ -23,14 +22,10 @@ function App() {
     dispatch(contactAdded(phone));
   };
 
-  const handleEditSubmit = (index, contactInfo) => {
-    dispatch(editContact(index, contactInfo));
-  };
-
   return (
     <div>
       <div>
-        <div class="list-container">
+        <div className="list-container">
           <header>
             <h1>Contact list</h1>
             <div className="form-container">
@@ -56,14 +51,7 @@ function App() {
 
           <main className="contact-list">
             {contactlist.map((item, index) => {
-              return (
-                <Contact
-                  key={index}
-                  contact={item}
-                  index={index}
-                  handleEdit={handleEditSubmit}
-                />
-              );
+              return <Contact key={index} contact={item} index={index} />;
             })}
           </main>
         </div>

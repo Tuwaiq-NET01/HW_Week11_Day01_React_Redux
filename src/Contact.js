@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteContact, editContact } from "./action";
 
-const Contact = ({ contact, index, handleEdit }) => {
+const Contact = ({ contact, index }) => {
   const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
   const [contactInfo, setContactInfo] = useState({});
@@ -16,13 +16,11 @@ const Contact = ({ contact, index, handleEdit }) => {
   };
 
   const handleDelete = () => {
-    console.log(index);
     dispatch(deleteContact(index));
   };
 
   const handleEditSubmit = (e) => {
-    //dispatch(editContact(index, contactInfo));
-    handleEdit(index, contactInfo);
+    dispatch(editContact(index, contactInfo));
     setEditMode(false);
   };
 
@@ -49,13 +47,13 @@ const Contact = ({ contact, index, handleEdit }) => {
         ) : (
           <div>
             <input
-              name="number"
+              name="name"
               placeholder={contact.name}
               onChange={handelChange}
             />
             <br />
             <input
-              name="name"
+              name="number"
               placeholder={contact.number}
               onChange={handelChange}
             />

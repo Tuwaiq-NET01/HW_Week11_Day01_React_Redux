@@ -9,16 +9,16 @@ export default function contactlist(state = [], action) {
         },
       ];
     case "deleteContact":
-      let arrCopy = [...state];
-      copy.splice(action.payload, 1);
-      return arrCopy;
+      let deleteCopy = [...state];
+      deleteCopy.splice(action.payload, 1);
+      return deleteCopy;
     case "editContact":
-      state[action.index] = {
+      let editCopy = [...state];
+      editCopy[action.index] = {
         number: action.payload.number,
         name: action.payload.name,
       };
-      console.log(state);
-      return state;
+      return editCopy;
     default:
       return state;
   }
