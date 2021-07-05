@@ -1,6 +1,6 @@
 # Contact list
 
-![alt text](./img.jpeg)
+
 
 ## Requirements
 
