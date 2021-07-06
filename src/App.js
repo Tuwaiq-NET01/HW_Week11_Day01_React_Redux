@@ -6,7 +6,6 @@ function App() {
   const counter = useSelector(state => state.counter)
   const contactlist = useSelector(state => state.contactlist)
   const [phone, setPhone] = useState({})
-  const [selecte, setSelecte] = useState(-1)
   const dispatch = useDispatch();
 
 
@@ -25,11 +24,13 @@ function App() {
     dispatch(contactAdded(phone))
   }
 
-  const handelEdit = (event) => {
-    event.preventDefault()
-    setSelecte(-1)
-    dispatch(editing(selecte, phone))
-    }
+  const handleEdit = (index) => {
+    if (contactlist[index].name === phone.name &&
+        contactlist[index].number === phone.number)
+      return;
+      
+    dispatch(editing({index, phone}));
+  }
 
     const deleteContact = (index) => {
       dispatch(deleting({index}));
@@ -45,7 +46,7 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number} <input onClick={() => handelEdit} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
+            <li>name {item.name} number {item.number} <input onClick={() => handleEdit(index)} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
 
           </div>
         )
