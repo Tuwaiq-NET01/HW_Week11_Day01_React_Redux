@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+body {
+  background: #c33764;
+  background: -webkit-linear-gradient(
+    to right,
+    #1d2671,
+    #c33764
+  ); 
+  background: linear-gradient(
+    to right,
+    #1d2671,
+    #c33764
+  );
+  color: #ffffffa6;
+  font-family: "Roboto", sans-serif;
+}
+
+input {
+  background: border-box;
+  color: #ffffffa6;
+  border-top: none;
+  width: 200px;
+  padding: 5px;
+}

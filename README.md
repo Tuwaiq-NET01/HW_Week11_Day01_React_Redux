@@ -1,6 +1,9 @@
+![Tuwaiq](https://i.ibb.co/SV2BSn5/tuwaiq.png)
+  
+  
+
 # Contact list
 
-![alt text](./img.jpeg)
 
 ## Requirements
 
@@ -8,12 +11,5 @@
 
 2- Create `Edit` action that edit the name and the number of a record in the contact list.
 
-## Due Date
 
-On Tuesday at 9:00 pm.
-
-
-
-
-
-
+اسم المتدربة : تغريد القحطاني
