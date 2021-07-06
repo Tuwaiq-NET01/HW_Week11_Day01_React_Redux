@@ -1,12 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
+import { increment, decrement, contactAdded,deleting,editing } from './action';
 import { useState } from 'react'
 
 function App() {
   const counter = useSelector(state => state.counter)
   const contactlist = useSelector(state => state.contactlist)
+  const [selected, setSelected] = useState(-1)
   const [phone, setPhone] = useState({})
   const dispatch = useDispatch();
+
+
   const handelChange = (event) => {
     const att = event.target.name
     const value = event.target.value
@@ -17,11 +20,22 @@ function App() {
 
   }
 
-
   const handelSubmit = (event) => {
     event.preventDefault()
     dispatch(contactAdded(phone))
   }
+
+  const handleEdit = (event) => {
+    event.preventDefault()
+    setSelected(-1)
+    dispatch(editing(selected,phone))
+  }
+ 
+
+    const deleteContact = (index) => {
+      dispatch(deleting({index}));
+    }
+
   return (
     <div >
       <h1>counter {counter}</h1>
@@ -32,7 +46,7 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number}</li>
+            <li>name {item.name} number {item.number} <input onClick={() => handleEdit(index)} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
 
           </div>
         )
