@@ -1,6 +1,20 @@
+<div dir="ltr" align="center">
+
+![Tuwaiq](https://i.ibb.co/SV2BSn5/tuwaiq.png)
+
+</div>
+
+<hr />
+
 # Contact list
 
-![alt text](./img.jpeg)
+### <b>By:</b>  Mohammed Rashed Albalawi.
+
+
+<br />
+<hr />
+<br />
+
 
 ## Requirements
 

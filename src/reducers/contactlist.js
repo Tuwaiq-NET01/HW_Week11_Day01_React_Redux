@@ -8,6 +8,21 @@ export default function contactlist(state = [], action) {
 
                 }
             ]
+        case "EDIT": 
+        return state.map((item)=> {
+            if( item.id == action.payload.id) {
+              return action.payload
+            } else {
+              return item;
+            }
+          });
+
+        
+        case "DEL": 
+        let arr = [...state]
+        arr.splice(action.payload,1)
+        return arr
+
         default:
             return state
     }

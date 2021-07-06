@@ -1,12 +1,18 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
+import { increment, decrement, contactAdded, contactDelete, contactEdit} from './action';
 import { useState } from 'react'
 
 function App() {
   const counter = useSelector(state => state.counter)
   const contactlist = useSelector(state => state.contactlist)
   const [phone, setPhone] = useState({})
+  const [editMode, setEditMode] = useState(false)
+  const [target, setTarget] = useState({})
+  
   const dispatch = useDispatch();
+
+
+
   const handelChange = (event) => {
     const att = event.target.name
     const value = event.target.value
@@ -22,6 +28,35 @@ function App() {
     event.preventDefault()
     dispatch(contactAdded(phone))
   }
+
+
+  // const handleDelete = () => {
+
+  // }
+
+
+  const handleEditMode = (item) => {
+
+  }
+
+
+  const handelChangeEdit = (event) => {
+    const att = event.target.name;
+    const value = event.target.value;
+    const updatedValue = { ...target };
+    updatedValue[att] = value;
+    setTarget(updatedValue);
+  };
+
+  const handelSubmitEdit = (event) => {
+    event.preventDefault();
+    dispatch(contactEdit(target));
+    setEditMode(false);
+    setTarget({});
+  };
+
+
+
   return (
     <div >
       <h1>counter {counter}</h1>
@@ -32,16 +67,42 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number}</li>
+            <div >
+            <li>name {item.name} number {item.number} 
+            
+              <button onClick={() => {  setEditMode(true); setTarget(item) } }>EDIT</button> 
+            <button onClick={() => dispatch(contactDelete(index))} >DELETE</button>  
+
+            </li>
+          </div>
 
           </div>
         )
       })}</ul>
 
+      {editMode ? 
+      
+      
+      <form onSubmit={handelSubmitEdit}>
+        <label>
+          <input type="text" name="number" value={target.number} onChange={(e) => handelChangeEdit(e)} />
+                number</label> 
+        <br />
+        <label>
+          <input type="text" name="name" value={target.name} onChange={(e) => handelChangeEdit(e)} />
+                name</label>
+        <br />
+        <div>
+          <input type="submit" value="update" />
+        </div>
+      </form>
+      : 
+      
+      
       <form onSubmit={handelSubmit}>
         <label>
           <input type="text" name="number" onChange={handelChange} />
-                number</label>
+                number</label> 
         <br />
         <label>
           <input type="text" name="name" onChange={handelChange} />
@@ -51,6 +112,8 @@ function App() {
           <input type="submit" value="Add to the list" />
         </div>
       </form>
+      
+      }
 
     </div>
   );
