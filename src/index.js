@@ -3,24 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from "redux";
-import allReducers from './reducers'
-import { Provider } from 'react-redux';
-const initialState = {
-  counter: 10,
-}
+import {createStore} from 'redux'
+import allReducers from './reducer'
+import {Provider} from 'react-redux'
 
+const intialState ={
+  counter:10,
+  //isOn:true
+}
 const store = createStore(
   allReducers,
-  initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+  intialState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store= {store}>
     <App />
-  </Provider>
-  ,
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -1,59 +1,75 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useSelector,useDispatch } from 'react-redux'
+import { increment, decrement, contactAdd,toggle } from './action'
+import EditDeleteList from './EditDeleteList'
 
-function App() {
-  const counter = useSelector(state => state.counter)
-  const contactlist = useSelector(state => state.contactlist)
-  const [phone, setPhone] = useState({})
-  const dispatch = useDispatch();
-  const handelChange = (event) => {
-    const att = event.target.name
+export default function App() {
+ // const counter = useSelector(state => state.counter)
+ // const isLogged = useSelector(state => state.isLogged)
+  //const isOn = useSelector(state => state.isOn)
+
+  const contactList = useSelector(state => state.contactList)
+  const [phone,setPhone]=useState({})
+
+  const handelChange = (event)=>{
+    const att=event.target.name
     const value = event.target.value
-    const updatedValue = { ...phone }
-    updatedValue[att] = value
-    console.log("updatedValue", updatedValue);
-    setPhone(updatedValue)
-
+    const updateValue ={...phone}
+    updateValue[att]=value
+    console.log("updated value",updateValue)
+    setPhone(updateValue)
   }
+  const dispatch = useDispatch()
 
 
-  const handelSubmit = (event) => {
+  const handelSubmit = (event)=>{
     event.preventDefault()
-    dispatch(contactAdded(phone))
+    dispatch(contactAdd(phone))
   }
+
+  
+  // const handelEdit = (event)=>{
+  //   event.preventDefault()
+    
+  // }
+
+
   return (
-    <div >
-      <h1>counter {counter}</h1>
+    <div>
+      {/* <h1> Counter  {counter} 🎮🕹</h1>
+      <button onClick={()=> dispatch(increment(100))}>+</button>
+      <button onClick={()=> dispatch(decrement())}>-</button>
+      {isOn? <h1>OhYeah</h1>:<h1>Oh Noooo!!!</h1>}  
+      <button onClick={()=> dispatch(toggle())}>Click me I Dare You !!</button> */}
 
-      <button onClick={() => dispatch(increment(2))}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
 
-      <ul>{contactlist.map((item, index) => {
-        return (
-          <div key={index}>
-            <li>name {item.name} number {item.number}</li>
 
-          </div>
-        )
-      })}</ul>
+      <ul> {contactList.map((item,index)=>{
+        return(
+          <EditDeleteList key={index} index={index} item={item} />
+          )})
+      }
+      </ul>
 
       <form onSubmit={handelSubmit}>
         <label>
-          <input type="text" name="number" onChange={handelChange} />
-                number</label>
-        <br />
-        <label>
-          <input type="text" name="name" onChange={handelChange} />
-                name</label>
-        <br />
-        <div>
+          <input type="text" name ="number" onChange={handelChange}/>
+          number
+          </label>
+          <br/>
+          <label>
+          <input type="text" name ="name" onChange={handelChange}/>
+          name
+          </label>
+          <br/>
+          <div>
           <input type="submit" value="Add to the list" />
         </div>
       </form>
 
-    </div>
-  );
-}
 
-export default App;
+      {/* {isLogged? <h1>Welcome</h1> : null} */}
+
+    </div>
+  )
+}
