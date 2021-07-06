@@ -15,3 +15,22 @@ export const contactAdded = (arg) => {
         payload: arg
     }
 }
+
+
+export const contactEdited = (arg,selectindex) => {
+    return {
+        type: "contactEdited",
+        payload: arg,
+        index: selectindex
+
+
+    }
+}
+
+export const Delete = (e) => {
+    return {
+        type: "delete",
+        payload: e,
+
+    }
+}
