@@ -74,7 +74,7 @@ function App() {
 
       <form onSubmit={handelSubmit}>
         <label>
-        Id<input type="text" name="number" onChange={handelChange} />
+        Number<input type="text" name="number" onChange={handelChange} />
                 </label>
         <br />
         <label>
