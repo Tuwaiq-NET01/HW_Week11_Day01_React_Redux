@@ -7,7 +7,13 @@ export default function contactlist(state = [], action) {
                     name: action.payload.name,
 
                 }
-            ]
+            ];
+            case "removeContact":
+                state.splice(action.payload.index, 1);
+                return [...state];
+            case "editContact":
+                state[action.payload.index] = action.payload.phone;
+                return [...state];
         default:
             return state
     }

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement, contactAdded } from './action';
+import { increment, decrement, contactAdded, removeContact, editContact } from './action';
 import { useState } from 'react'
 
 function App() {
@@ -14,10 +14,23 @@ function App() {
     updatedValue[att] = value
     console.log("updatedValue", updatedValue);
     setPhone(updatedValue)
-
   }
 
+  const editContact = (index) => {
+    if(!contactlist[index] ||
+       (contactlist[index].name === phone.name &&
+        contactlist[index].number === phone.number))
+      return;
+    
+    const arg = {index, phone};
+    
+    dispatch(editContact(arg));
+  }
 
+  const deleteContact = (index) => {
+    dispatch(removeContact({index}));
+  }
+  
   const handelSubmit = (event) => {
     event.preventDefault()
     dispatch(contactAdded(phone))
@@ -32,7 +45,7 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number}</li>
+            <li>name {item.name} number {item.number} <input onClick={() => editContact(index)} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
 
           </div>
         )
