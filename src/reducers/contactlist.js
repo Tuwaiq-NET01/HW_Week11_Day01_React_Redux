@@ -4,11 +4,21 @@ export default function contactlist(state = [], action) {
             return [
                 ...state, {
                     number: action.payload.number,
-                    name: action.payload.name,
-
+                    name: action.payload.name
                 }
             ]
-        default:
-            return state
+            
+            case "EDIT":
+                state[action.index]  = {
+                    phonenumber: action.payload.phonenumber,
+                    name: action.payload.name
+                }
+                return state
+            case "DELETE":
+                let arr= [...state]
+                arr.splice(action.payload,1)
+                return arr
+            default:
+                return state
+        }
     }
-}
