@@ -64,7 +64,7 @@ function App() {
         else{
         return (
           <div key={index}>
-            <li> Id: {item.number} Name: {item.name}</li>
+            <li> number: {item.number} Name: {item.name}</li>
             <button className ="btn btn-danger" onClick={() => dispatch(contactDeleted(index))}>Delete</button>
             <button className ="btn btn-danger" onClick={() => {setChoice(index); setPhone(item)}}>Edit</button>
           </div>
@@ -74,7 +74,7 @@ function App() {
 
       <form onSubmit={handelSubmit}>
         <label>
-        Id<input type="text" name="id" onChange={handelChange} />
+        Id<input type="text" name="number" onChange={handelChange} />
                 </label>
         <br />
         <label>
