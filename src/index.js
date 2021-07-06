@@ -8,6 +8,7 @@ import allReducers from './reducers'
 import { Provider } from 'react-redux';
 const initialState = {
   counter: 10,
+  isOn:true,
 }
 
 const store = createStore(
