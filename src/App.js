@@ -16,15 +16,13 @@ function App() {
     setPhone(updatedValue)
   }
 
-  const editContact = (index) => {
+  const handleEditContact = (index) => {
     if(!contactlist[index] ||
        (contactlist[index].name === phone.name &&
         contactlist[index].number === phone.number))
       return;
-    
-    const arg = {index, phone};
-    
-    dispatch(editContact(arg));
+      
+    dispatch(editContact({index, phone}));
   }
 
   const deleteContact = (index) => {
@@ -32,7 +30,7 @@ function App() {
   }
   
   const handelSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     dispatch(contactAdded(phone))
   }
   return (
@@ -45,7 +43,7 @@ function App() {
       <ul>{contactlist.map((item, index) => {
         return (
           <div key={index}>
-            <li>name {item.name} number {item.number} <input onClick={() => editContact(index)} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
+            <li>name {item.name} number {item.number} <input onClick={() => handleEditContact(index)} type="button" value="edit" /> <input onClick={() => deleteContact(index)} type="button" value="delete" /></li>
 
           </div>
         )

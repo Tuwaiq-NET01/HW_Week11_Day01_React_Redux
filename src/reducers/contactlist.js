@@ -4,8 +4,7 @@ export default function contactlist(state = [], action) {
             return [
                 ...state, {
                     number: action.payload.number,
-                    name: action.payload.name,
-
+                    name: action.payload.name
                 }
             ];
             case "removeContact":
