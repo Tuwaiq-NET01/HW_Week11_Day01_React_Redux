@@ -8,6 +8,19 @@ export default function contactlist(state = [], action) {
 
                 }
             ]
+        case "contactDeleted":
+            let updatedState = [...state]
+            updatedState.splice(action.payload, 1)
+            return updatedState
+
+        case "contactEdited":
+            return state.map((value,index) => {
+                if (index == action.index) {
+                    return action.payload
+                } else {
+                    return value;
+                }
+            });
         default:
             return state
     }
